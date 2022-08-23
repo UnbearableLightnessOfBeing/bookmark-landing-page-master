@@ -1,0 +1,890 @@
+
+//---------------------------------------
+//Variables
+//----------------------------------------
+$general-indention: 10vw;
+
+// primary colors
+$main-blue: hsl(231, 69%, 60%);
+$main-red: #fa5757;
+
+// secondary colors
+$secondaty-grayish-blue: hsl(229, 8%, 60%);
+$secondaty-dark-blue: hsl(229, 31%, 21%);
+
+//fonts
+$main-font: ('Rubik', sans-serif);
+
+//************************************
+//mixins
+@mixin button($color) {
+    border-radius: 5px;
+    font-weight: 500;
+    color: white;
+    box-shadow: 0 5px 7px #bbb;
+    @if $color == red {
+        padding: 0.75rem 2rem;
+    }
+    @else if $color == blue {
+        padding: 0.75rem 0.75rem;
+    }
+    @else {
+        padding: 0.75rem 0.75rem;
+    }
+}
+
+@mixin heading($fontSize) {
+    font-size: $fontSize;
+    font-weight: 500;
+}
+
+@mixin flow-down($gap) {
+    > *:not(:first-child) {
+        margin-top: $gap;
+    }
+}
+
+@mixin indentions($val) {
+    > * {
+        margin-inline: $val;
+    }
+}
+
+@mixin bg-decorator($width, $height, $bottom, $side) {
+    content: "";
+    position: absolute;
+    bottom: $bottom;
+    height: $height;
+    width: $width;
+     
+    z-index:-1;
+    background-color: $main-blue;
+
+    @if $side == right {
+        right: -$general-indention;
+        border-bottom-left-radius: 5rem;
+    }
+    @else if $side == left {
+        left: -$general-indention;
+        border-bottom-right-radius: 5rem;
+    }
+}
+
+//exclusively development class
+.dev {
+    border: 2px solid red;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-family: $main-font;
+}
+
+.text {
+    line-height: 30px;
+}
+
+
+
+
+
+
+main {
+    @include flow-down(7rem);
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    height: 5rem;
+    width: 100%;
+    justify-content: space-between;
+    
+}
+
+.main-logo {
+    margin-left: $general-indention;
+    display: flex;
+    align-items: center;
+}
+
+#nav-hamburger {
+    margin-right: $general-indention;
+    display: flex;
+    align-items: center;
+
+}
+
+#main-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #242A45f0;
+    z-index: 10;
+    @include indentions($general-indention);
+    @include flow-down(3rem);
+    transform: translateY(-100%);
+    opacity: 0.0;
+    transition: all 0.3s ease-in-out;
+
+
+    #nav-header {
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        margin-block: 2rem;
+
+        #close {
+            width: 20px;
+            height: 20px
+        }
+    }
+
+    .items {
+        @include flow-down(3rem);
+    }
+
+    .nav-item {
+        position: relative;
+        text-align: center;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+
+    .nav-item::after {
+        content: '';
+        position: absolute;
+        top:-1.5rem;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    #login {
+        border: 3px solid white;
+        padding-block: 0.5rem;
+        border-radius: 7px;
+    }
+
+    #nav-contact {
+        display: flex;
+        gap: 2rem;
+        align-self: center;
+        margin-bottom: 3rem;
+    }
+
+} 
+
+.seen {
+    transform: translateY(0%) !important;
+    opacity: 1.0 !important;
+}
+
+
+.intro {
+    display: flex;
+    flex-direction: column-reverse;
+    // width: 100%;
+    @include indentions($general-indention);
+    
+    .intro-left {
+        @include flow-down(1.5rem);
+        text-align: center;
+        h1 {
+            @include heading(34px);
+        }
+
+        .intro-btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            
+        }
+
+    }
+    
+    .intro-right {
+        position: relative;
+        margin-block: 3rem ;
+    }
+    .intro-right::after {
+        @include bg-decorator(80vw, 50vw, 5%, right);
+    }
+}
+
+.image {
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.features {
+    @include indentions($general-indention);
+    @include flow-down(1.5rem);
+    text-align: center;
+
+    .panel {
+        @include flow-down(1.5rem);
+
+        .blue-btn {
+            display: none;
+        }
+
+        .features-right {
+            @include flow-down(1.5rem);
+        }
+    }
+
+    .image {
+        position: relative;
+        margin-block: 4rem;
+    }
+    .image::after {
+        @include bg-decorator(80vw, 50vw, -10%, left);
+    }
+
+    .heading {
+        @include heading(26px);
+    }
+
+    .tabs {
+        position: relative;
+
+        .tab {
+            padding-block: 1rem;
+            position: relative;
+            color: $secondaty-grayish-blue;
+
+        }
+
+        .tab[aria-selected="true"] {
+            color: black;
+        }
+
+        .tab[aria-selected="true"]::before {
+            content: "";
+            position:absolute;
+            top:calc(100% - 5px);
+            left:30%;
+            width: 40%;
+            height: 5px;
+            background-color: $main-red;
+        }
+
+        .tab::after {
+            content: "";
+            position:absolute;
+            top:100%;
+            left:0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(0,0,0, 0.2);
+        }
+    }
+
+    .tabs::before {
+        content: "";
+        position:absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 2px;
+        background-color: rgba(0,0,0, 0.2);
+
+    }
+}
+
+.pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include indentions($general-indention);
+    @include flow-down(1.5rem);
+    text-align: center;
+
+    .heading {
+        @include heading(26px);
+    }
+
+    .cards {
+        @include flow-down(1.5rem);
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include flow-down(1.5rem);
+        width: 280px;
+        box-shadow: 0 7px 25px hsl(231, 69%, 60%, 0.15);
+        padding-top: 3.5rem;
+        padding-bottom: 1.5rem;
+        border-radius: 1rem;
+
+
+        .blue-btn {
+            width: 80%;
+        }
+    }
+}
+
+.questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include indentions($general-indention);
+    @include flow-down(1.5rem);
+    text-align: center;
+
+    .heading {
+        @include heading(26px);
+    }
+
+    .sliders {
+        margin-top: 3rem;
+        width: calc(100% - $general-indention * 3 );
+        text-align: left;
+        @include flow-down(1.5rem);
+
+        .question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+                width: auto;
+                height: 15px;
+            }
+        }
+
+        .clicked {
+            img {
+                transform: scaleY(-1);
+            }
+        }
+
+       
+
+        .line {
+            width: 100%;
+            height: 2px;
+            background-color: rgba(0,0,0, 0.2);
+        }
+
+        .answer {
+            display: none;
+            position: relative;
+        }
+    }
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include indentions($general-indention);
+    @include flow-down(1.5rem);
+    text-align: center;
+    background-color: $main-blue;
+    padding-block: 4rem;
+
+    .contact-info {
+        @include flow-down(1rem);
+        color: white;
+
+        .stretched {
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .heading {
+            @include heading(26px);
+        }
+
+    }
+
+    form {
+        width: calc(100% - $general-indention * 3);
+        @include flow-down(1rem);
+        input {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border: 3px solid transparent;
+            border-radius: 5px;
+        }
+
+        .error-occured {
+            border: 3px solid $main-red;
+            border-radius:0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        input::placeholder {
+            color: rgba(0, 0, 0, 0.25);
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+        .red-btn {
+            box-shadow: none;
+            font-weight: 400;
+        }
+
+        .input {
+            position: relative;
+
+            #error-message {
+                display: none;
+                color: white;
+                text-align: left;
+                font-size: 12px;
+                font-style: italic;
+                padding: 0.25rem 0.5rem;
+                background-color: $main-red;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            #error {
+                display: none;
+                position: absolute;
+                margin: 0 ;
+                top: 12px;
+                right: 0.7rem;
+            }
+        }
+    }
+}
+
+footer {
+    background-color: $secondaty-dark-blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include indentions($general-indention);
+    @include flow-down(3.5rem);
+    text-align: center;
+    padding-block: 2rem;
+
+    .items {
+        @include flow-down(1.5rem);
+        text-transform: uppercase;
+        color: white;
+        letter-spacing: 2px;
+    }
+
+    #footer-contact {
+        display: flex;
+        > a:not(.hovered-icons) {
+            display: none;
+        }
+
+        .hovered-icons {
+            display: flex;
+            gap: 2rem;
+        }
+    }
+
+    .attribution {
+        color: white;
+        margin-top: 1.5rem;
+
+        a {
+            color: lightblue;
+        }
+    }
+}
+
+
+
+.red-btn {
+    @include button(red);
+    border: 3px solid $main-red;
+    background-color: $main-red;
+}
+
+
+
+.blue-btn {
+    @include button(blue);
+    font-size: 16px;
+    border: 3px solid $main-blue;
+    background-color: $main-blue;
+}
+
+
+
+.colorless-btn {
+    @include button(none);
+    font-size: 16px;
+    border: 3px solid transparent;
+    background-color: #f5f5f5;
+    color: gray;
+}
+
+
+
+
+
+.text {
+    color: $secondaty-grayish-blue;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 850px) {
+
+    .red-btn:hover {
+        cursor: pointer;
+        color: $main-red !important;
+        background-color: transparent;
+    }
+    .blue-btn:hover {
+        cursor: pointer;
+        color: $main-blue;
+        background-color: transparent;
+    }
+    .colorless-btn:hover {
+        cursor: pointer;
+        border: 3px solid gray;
+        color: gray;
+        background-color: transparent;
+    }
+
+    #main-nav {
+        display: flex;
+        position: relative;
+        flex-direction: row;
+        height: 100%;
+        background-color: transparent;
+        margin-right: 10vw;
+        align-items: center;
+        gap: 0rem;
+        top: 0;
+        transform: translateY(0%);
+        opacity: 1.0;
+
+        > * {
+            margin: 0;
+        }
+ 
+
+        .items {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+
+            #login {
+                color: white;
+                @include button(red);
+                border: 3px solid $main-red;
+                background-color: $main-red;
+            }
+            #login:hover {
+                background-color: white;
+                border: 3px solid $main-red;
+                color: $main-red;
+            }
+
+            .nav-item {
+                color: black;
+                margin:0;
+                margin-inline: 1rem;
+            }
+
+            .nav-item::after {
+                display: none;;
+            }
+        }
+
+        .nav-item {
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+
+        }
+
+        .nav-item:hover {
+            cursor: pointer;
+            color: $main-red;
+        }
+    } 
+
+    #nav-contact, #nav-logo, #close {
+        display: none !important;
+        width:0;
+        height: 0;
+        margin: 0;
+    }
+
+    #nav-hamburger {
+        display: none;
+    }
+
+
+    .intro {
+
+        flex-direction: row;
+        margin-top: 6rem;
+        margin-left: $general-indention;
+        justify-content: space-between;
+        
+        .intro-left {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            place-content: center;
+            text-align: left;
+            max-width: 535px;
+            // padding: 0;
+            margin: 0vw;
+    
+    
+            #biggest-heading {
+                @include heading(46px);
+            }
+    
+            .intro-btns {
+                display: flex;
+                gap: 1rem;
+                justify-content: flex-start;
+            }
+        }
+
+        .intro-right {
+            margin-left: 0;
+            padding: 0;
+            width: 50%;
+        }
+        
+        .intro-right::after {
+            @include bg-decorator(40vw, 25vw, 0%, right);
+        }
+       
+    }
+
+    .features {
+        .text {
+            max-width: 535px;
+            margin-inline: auto;
+        }
+
+        .tabs {
+            display: flex;
+            
+            max-width: 750px;
+            margin-inline: auto;
+
+            .tab {
+                width: 33%;
+                cursor: pointer;
+            }
+
+            .tab[aria-selected="true"]::before {
+                width: 100%;
+                top: calc(100% - 3px);
+                left: 0;
+                z-index: 5;
+            }
+
+            .tab:hover {
+                color: $main-red;
+            }
+        }
+
+        .tabs::before {
+            display: none;
+        }
+
+        // .panels {
+        //     height: 40vw;
+        // }
+
+        .panel {
+            display: flex;
+
+            .features-right {
+                @include flow-down(1.5rem);
+                text-align: left;
+                margin-left: 7rem;
+                margin-block: auto;
+            }
+
+            .text {
+                max-width: 535px;
+                text-align: left;
+            }
+
+            .blue-btn {
+                display: inherit;
+                width: fit-content;
+            }
+            .image:after {
+                @include bg-decorator(30vw, 25vw, -55%, left);
+            }
+        }
+
+    }
+
+    .pricing {
+
+        .text {
+            max-width: 535px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 2vw;
+            
+        }
+        @for $i from 1 through 3 {
+            .card:nth-child(#{$i}) { 
+                margin-top: 2rem * ($i - 1);
+                // height: calc(400px + 2rem * ($i - 1)); 
+                height: fit-content; 
+            }
+          }
+    }
+
+    .questions {
+        
+        .heading {
+            max-width: 535px;
+        }
+
+        .text {
+            max-width: 535px;
+        }
+
+        .sliders {
+            max-width: 535px;
+        }
+
+        .question:hover {
+            cursor:pointer;
+        }
+    }
+
+    .contact {
+        form {
+            display: flex;
+            gap: 1rem;
+            max-width: 450px;
+
+            .red-btn {
+                margin: 0;
+                width: 35%;
+                height: min-content;
+            }
+
+        
+            .red-btn:hover {
+                background-color: white;
+                border: 3px solid $main-red;
+            }
+            .input {
+                width: 65%;
+            }
+        }
+
+        .contact-info {
+            max-width: 400px;
+        }
+    }
+
+    footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 2rem;
+        margin: 0;
+
+        > * {
+            margin: 0;
+        }
+
+        .items {
+            display: flex;
+            flex-direction: row;
+            justify-items: center;
+            gap:2rem;
+            margin: 0;
+            padding-left: 1rem;
+            
+            .item {
+                margin: 0;
+                font-size: 14px;
+            }
+
+            .item:hover {
+                cursor: pointer;
+                color: $main-red;
+                
+            }
+        }
+
+        #footer-contact {
+            margin: 0 !important;
+            padding-left: 4rem;
+            position: relative;
+            gap: 2rem;
+
+            > a {
+                display: block !important;
+            }
+
+            a:hover {
+                // transform: scale(1.2);
+                opacity: 0.0;
+                
+            }
+
+            .hovered-icons {
+                display: flex;
+                gap: 2rem;
+                position: absolute;
+                left: 4rem;
+                opacity: 1.0;
+            }
+        }
+
+        .attribution {
+            margin: 0;
+            padding-left: 1rem;
+        }
+    }
+
+}
